@@ -9,8 +9,8 @@ import os
 
 # Command line arguments
 parser = argparse.ArgumentParser(description='PIR motion sensor script for keeping screen on and off')
-parser.add_argument("-t", default=300, metavar='seconds', type=int, help="Time before screen goes off")
-parser.add_argument("-p", default=16, metavar='pin_number', type=int, help="Pin used to collect motion sensor data")
+parser.add_argument("-t", default=300, metavar='seconds', type=int, help="Time before screen goes off, default: 300 seconds")
+parser.add_argument("-p", default=16, metavar='pin_number', type=int, help="Pin used to collect motion sensor data, default: 16")
 
 args = parser.parse_args()
 timeUntilScreenOff = args.t
