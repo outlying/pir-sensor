@@ -10,9 +10,11 @@ import os
 # Command line arguments
 parser = argparse.ArgumentParser(description='PIR motion sensor script for keeping screen on and off')
 parser.add_argument("-t", default=300, metavar='seconds', type=int, help="Time before screen goes off")
+parser.add_argument("-p", default=16, metavar='pin_number', type=int, help="Pin used to collect motion sensor data")
 
 args = parser.parse_args()
 timeUntilScreenOff = args.t
+pirPin = args.p
 
 # Prepare logger
 logger = logging.getLogger('Sensor')
@@ -28,13 +30,10 @@ consoleHandler.setFormatter(formatter)
 
 logger.addHandler(consoleHandler)
 
-# Pin used for motion sensor
-PIR_PIN = 16
-
 # GPIO setup
 GPIO.setwarnings(False)
 GPIO.setmode(GPIO.BOARD)
-GPIO.setup(PIR_PIN, GPIO.IN)
+GPIO.setup(pirPin, GPIO.IN)
 GPIO.setup(3, GPIO.OUT)
 
 timer = 0
@@ -42,7 +41,7 @@ previousState = 0
 screenOn = True
 
 while True:
-    state = GPIO.input(PIR_PIN)
+    state = GPIO.input(pirPin)
 
     if state == 1:
         if previousState == 0:
